@@ -1,3 +1,21 @@
 <div class="container">
-    <h1>Novo Jogo</h1>
+    <form action="/games/new" method="post">
+        <fieldset>
+            <div>
+                <label for="game_name">Nome</label>
+                <input type="text" id="game_name" name="game_name">
+            </div>
+            <div>
+                <label for="game_category">Categoria</label>
+                <input type="text" id="game_category" name="game_category">
+            </div>
+            <div>
+                <label for="game_platform">Console</label>
+                <input type="text" id="game_platform" name="game_platform">
+            </div>
+            <button type="submit">Salvar</button>
+        </fieldset>
+    </form>
+    <a href="/games">Jogos</a><br>
+    <a href="/">Home</a>
 </div>
