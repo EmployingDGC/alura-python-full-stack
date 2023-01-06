@@ -1,10 +1,13 @@
 from flask import (
     Flask as Flask,
-    render_template as render_template
+    render_template,
+    request,
+    redirect
 )
 
 from src.includes.game import Game
 from src.includes.utils.string import clean_render_template
+
 
 APP = Flask(__name__)    
 
@@ -56,6 +59,19 @@ def games_new():
     page = render_template("index.html", **kwargs_index)
     
     return clean_render_template(page)
+
+
+@APP.route("/games/new", methods=["POST"])
+def add_new_game():
+    game_name = request.form.get("game_name")
+    game_category = request.form.get("game_category")
+    game_platform = request.form.get("game_platform")
+
+    game = Game(game_name, game_category, game_platform)
+    
+    list_games.append(game)
+    
+    return redirect("/games", code=200)
 
 
 if __name__ == "__main__":
