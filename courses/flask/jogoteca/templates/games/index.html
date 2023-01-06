@@ -1,0 +1,21 @@
+<div class="container">
+    <h1>{{ title_header }}</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Plataforma</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for g in games %}
+                <tr>
+                    <td>{{ g.name }}</td>
+                    <td>{{ g.category }}</td>
+                    <td>{{ g.platform }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
