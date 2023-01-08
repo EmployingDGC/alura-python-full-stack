@@ -6,6 +6,7 @@ from flask import (
 )
 
 from src.includes.game import Game
+from src.includes.user import User
 
 
 APP = Flask(__name__)    
@@ -16,14 +17,18 @@ list_games = [
     Game("Crash Bandicoot Trilogy", "Platform", "PS5")
 ]
 
+list_users = [
+    User("Davi Guizani", "davigc", "1234")
+]
+
 
 @APP.route("/", methods=["GET"])
 def index():
-    kwargs_index = {
+    kwargs = {
         "title_page": "Jogoteca"
     }
     
-    return render_template("index.html", **kwargs_index)
+    return render_template("index.html", **kwargs)
 
 
 @APP.route("/games", methods=["GET"])
@@ -57,6 +62,34 @@ def add_new_game():
     list_games.append(game)
     
     return redirect("/games", code=200)
+
+
+@APP.route("/login", methods=["GET"])
+def login():
+    kwargs = {
+        "title_page": "Novo Jogo"
+    }
+    
+    return render_template("/authentication/login.html", **kwargs)
+
+
+@APP.route("/login", methods=["POST"])
+def verify_login():
+    user_login = request.form.get("login").lower().strip()
+    user_password = request.form.get("pwd")
+    
+    logged = False
+    
+    for user in list_users:
+        if user.login == user_login:
+            if user.password == user_password:
+                logged = True
+            break
+    
+    if logged:
+        return redirect("/games", code=200)
+    
+    return redirect("/login", code=401)
 
 
 if __name__ == "__main__":

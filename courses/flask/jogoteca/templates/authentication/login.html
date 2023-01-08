@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+{% block body_render %}
+<div class="container">
+    <h1>Faça seu login</h1>
+        <form action="/login" method="POST">
+            <p>
+                <label for="login">Nome de usuário:</label>
+                <input id="login" type="text" name="login" required>
+            </p>
+            <p>
+                <label for="pwd">Senha:</label>
+                <input id="pwd" type="password" name="pwd" required>
+            </p>
+            <p>
+                <button type="submit">Entrar</button>
+            </p>
+    </form>
+    <a href="/games">Jogos</a><br>
+    <a href="/">Home</a>
+</div>
+{% endblock body_render %}
