@@ -6,7 +6,6 @@ from flask import (
 )
 
 from src.includes.game import Game
-from src.includes.utils.string import clean_render_template
 
 
 APP = Flask(__name__)    
@@ -21,44 +20,30 @@ list_games = [
 @APP.route("/", methods=["GET"])
 def index():
     kwargs_index = {
-        "title_page": "Jogoteca",
-        "body_render": "<h1>Bem Vindo a nossa Jogoteca</h1>"
+        "title_page": "Jogoteca"
     }
     
-    page = render_template("index.html", **kwargs_index)
-    
-    return clean_render_template(page)
+    return render_template("index.html", **kwargs_index)
 
 
 @APP.route("/games", methods=["GET"])
 def games():
-    kwargs_games = {
+    kwargs = {
         "title_header": "Jogos",
+        "title_page": "Jogos",
         "games": list_games
     }
     
-    kwargs_index = {
-        "title_page": "Jogos",
-        "body_render": render_template("/games/index.html", **kwargs_games)
-    }
-    
-    page = render_template("index.html", **kwargs_index)
-    
-    return clean_render_template(page)
+    return render_template("/games/games.html", **kwargs)
 
 
 @APP.route("/games/new", methods=["GET"])
 def games_new():
-    kwargs_new = {}
-    
-    kwargs_index = {
-        "title_page": "Novo Jogo",
-        "body_render": render_template("/games/new.html", **kwargs_new)
+    kwargs = {
+        "title_page": "Novo Jogo"
     }
     
-    page = render_template("index.html", **kwargs_index)
-    
-    return clean_render_template(page)
+    return render_template("/games/new.html", **kwargs)
 
 
 @APP.route("/games/new", methods=["POST"])

@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="/static/reset.css">
 </head>
 <body>
-    {{ body_render }}
+    {% block body_render %}
+        <h1>Bem Vindo a nossa Jogoteca</h1>
+    {% endblock body_render %}
 </body>
 </html>
