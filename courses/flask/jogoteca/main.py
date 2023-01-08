@@ -99,5 +99,14 @@ def verify_login():
     return redirect("/login", code=401)
 
 
+@APP.route("/logout", methods=["GET"])
+def logout():
+    if session.get("logged_user"):
+        session["logged_user"] = None
+        return redirect("/login", code=200)
+    
+    return redirect("/login", code=401)
+
+
 if __name__ == "__main__":
     APP.run("127.0.0.1", 5000, True)
