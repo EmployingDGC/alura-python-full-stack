@@ -2,14 +2,17 @@ from flask import (
     Flask as Flask,
     render_template,
     request,
-    redirect
+    redirect,
+    session,
+    flash
 )
 
 from src.includes.game import Game
 from src.includes.user import User
 
 
-APP = Flask(__name__)    
+APP = Flask(__name__)
+APP.secret_key = "jogoteca"
 
 list_games = [
     Game("God of War 2018", "Adventure", "PS5"),
@@ -67,7 +70,7 @@ def add_new_game():
 @APP.route("/login", methods=["GET"])
 def login():
     kwargs = {
-        "title_page": "Novo Jogo"
+        "title_page": "Login"
     }
     
     return render_template("/authentication/login.html", **kwargs)
@@ -87,7 +90,11 @@ def verify_login():
             break
     
     if logged:
+        session["logged_user"] = user_login
+        flash(f"`{user_login}` logado com sucesso!")
         return redirect("/games", code=200)
+    
+    flash("Usuário ou senha incorreta!")
     
     return redirect("/login", code=401)
 

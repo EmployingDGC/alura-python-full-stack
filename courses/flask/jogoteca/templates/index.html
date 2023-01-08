@@ -14,5 +14,15 @@
             <h1>Bem Vindo a nossa Jogoteca</h1>
         </div>
     {% endblock body_render %}
+
+    {% with list_messages = get_flashed_messages() %}
+        {% if list_messages %}
+            <script>
+                {% for m in list_messages %}
+                    window.alert("{{ m }}");
+                {% endfor %}
+            </script>
+        {% endif %}
+    {% endwith %}
 </body>
 </html>
